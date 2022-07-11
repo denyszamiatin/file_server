@@ -1,3 +1,7 @@
+"""
+Entry point for File Server project
+"""
+
 import sys
 import file_srv
 
@@ -8,10 +12,11 @@ if __name__ == '__main__':
     print "Welcome to File server v0.1"
     print PROMPT
     try:
-        cwd = file_srv.chg_dir()
-        print "Currently you are here:\n" + cwd
-    except file_srv.FileServerError as e:
-        print e
+        CWD = file_srv.chg_dir()
+        print "Currently you are here:\n" + CWD
+    except file_srv.FileServerError as err:
+        print err
+
 
     while True:
         print PROMPT
@@ -37,7 +42,6 @@ if __name__ == '__main__':
                     "send EOF signal (Ctrl+Z or Ctrl+D)"
                 data = sys.stdin.read()
                 filename = file_srv.create_file(data)
-                print "File '{0}' created successfully".format(filename)
             elif inp == "3":
                 filename = raw_input("Please Enter file name to read: ")
                 print "File contents:"
@@ -53,6 +57,5 @@ if __name__ == '__main__':
                 ).upper().strip()
                 if confirm == "Y":
                     file_srv.del_file(filename)
-                    print "File '{0}' removed successfully".format(filename)
-        except file_srv.FileServerError as e:
-            print "Error occured: " + str(e)
+        except file_srv.FileServerError as err:
+            print "Error occured: " + str(err)
